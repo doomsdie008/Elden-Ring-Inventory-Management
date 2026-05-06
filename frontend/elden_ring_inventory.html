@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Elden Ring Database | Compendium</title>
+
+  <!-- Custom Font -->
+  <style>
+    @font-face {
+      font-family: 'Mantinia';
+      src: local('Mantinia'); /* Assuming local installation, otherwise fallback to serif */
+    }
+  </style>
+  
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="body-splash-state">
+
+  <!-- Audio Player (Hidden visually, controlled by JS) -->
+  <audio id="bgMusic" loop>
+    <source src="../Music/Elden Ring_spotdown.org.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- NAVBAR -->
+  <nav id="mainNav" class="hidden">
+    <div class="nav-left">
+      <button class="nav-back-button" onclick="showCategoryMenu()">
+        <span class="gold-icon">&lsaquo;</span> All Categories
+      </button>
+    </div>
+    
+    <div class="brand-title" onclick="goHome()">
+      ELDEN RING DB
+    </div>
+
+    <div class="nav-right" id="navSuggestions">
+      <!-- Random categories injected here by JS -->
+    </div>
+  </nav>
+
+  <!-- SEARCH HEADER -->
+  <header id="mainHeader" class="hidden">
+    <h1 class="hero-title" id="mainTitle">The Lands Between Compendium</h1>
+    
+    <!-- This button only shows on splash screen -->
+    <button id="startButton" class="start-button">PRESS ANY BUTTON</button>
+    
+    <p class="hero-subtitle">Search through an extensive database of weapons, armor, legendary bosses, and magical incantations.</p>
+    
+    <div class="search-container" id="searchContainer">
+      <input type="text" id="searchInput" class="search-input" placeholder="Search by name, lore, or attribute..." autocomplete="off"/>
+    </div>
+
+    <!-- Dynamic Sub-Filters (e.g. Katana, Greatsword, Demigod) -->
+    <div id="subFilters" class="sub-filters">
+      <!-- Populated via JS -->
+    </div>
+  </header>
+
+  <!-- CATEGORY SELECTION MENU -->
+  <main id="categoryMenu" class="category-menu hidden">
+    <div class="menu-container">
+      <div class="menu-header">Select Category</div>
+      <div class="menu-items">
+        <button class="menu-item" onclick="selectCategory('weapons')">
+          <span class="menu-index">I</span> Weapons
+        </button>
+        <button class="menu-item" onclick="selectCategory('armor')">
+          <span class="menu-index">II</span> Armor
+        </button>
+        <button class="menu-item" onclick="selectCategory('bosses')">
+          <span class="menu-index">III</span> Bosses
+        </button>
+        <!-- Categories are easily extensible -->
+      </div>
+    </div>
+  </main>
+
+  <!-- SUBCATEGORY SELECTION MENU -->
+  <main id="subcategoryMenu" class="subcategory-menu hidden">
+    <div class="menu-container">
+      <div class="menu-header" id="subcategoryMenuHeader">Select Type</div>
+      <div class="menu-items" id="subcategoryItems">
+        <!-- Dynamically populated via JS -->
+      </div>
+      <button class="menu-back" onclick="showCategoryMenu()">Back to Categories</button>
+    </div>
+  </main>
+
+  <!-- MAIN GRID (List View) -->
+  <main id="listView" class="hidden">
+    <div id="itemGrid" class="item-grid">
+      <!-- Cards injected here by JS -->
+    </div>
+  </main>
+
+  <!-- DETAIL PAGE (Fextralife Style View) -->
+  <main id="detailPage" class="detail-page hidden">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb" id="breadcrumb"></div>
+    
+    <div class="wiki-layout">
+      <!-- Left Sidebar (Image and Stats) -->
+      <aside class="wiki-sidebar">
+        <h2 id="detailTitle" class="wiki-title"></h2>
+        <div class="wiki-image-container">
+          <img src="" alt="" id="detailImage" class="wiki-img">
+        </div>
+        <div id="sidebarStats" class="wiki-stats">
+          <!-- Stats injected here -->
+        </div>
+      </aside>
+
+      <!-- Main Content (Lore, Drops, Strategy etc) -->
+      <section class="wiki-content">
+        <div id="mainContentLore" class="wiki-section">
+          <!-- Lore injected here -->
+        </div>
+        <div id="mainContentExtra" class="wiki-section">
+          <!-- Extra tables / data injected here -->
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <div class="ambient-particles" id="ambientParticles"></div>
+
+  <script>
+    // Generate floating ember particles
+    const particleContainer = document.getElementById('ambientParticles');
+    for (let i = 0; i < 40; i++) {
+        const ember = document.createElement('div');
+        ember.className = 'ember';
+        
+        // Randomize
+        const size = Math.random() * 3 + 1;
+        ember.style.width = `${size}px`;
+        ember.style.height = `${size}px`;
+        ember.style.left = `${Math.random() * 100}vw`;
+        ember.style.top = `${Math.random() * 100}vh`;
+        ember.style.animationDuration = `${Math.random() * 15 + 10}s`;
+        ember.style.animationDelay = `${Math.random() * 10}s`;
+        
+        particleContainer.appendChild(ember);
+    }
+  </script>
+  <script src="app.js"></script>
+</body>
+</html>
